@@ -15,7 +15,6 @@ Este projeto é um web scraper automatizado que coleta cotações de café do si
 - **requests**: Para requisições HTTP
 - **BeautifulSoup**: Para parsing HTML
 - **pymssql**: Para conexão com SQL Server
-- **schedule**: Para agendamento de tarefas
 
 ## 📦 Instalação
 
@@ -46,7 +45,7 @@ source venv/bin/activate
 ### Passo 3: Instale as dependências
 
 ```bash
-pip install requests beautifulsoup4 pymssql schedule
+pip install requests beautifulsoup4 pymssql
 ```
 
 **Ou**
@@ -99,7 +98,7 @@ python job_cccv.py
 job.cccv/
 ├── job_cccv.py          # Script principal
 ├── README.md            # Este arquivo
-└── requirements.txt     # Dependências (opcional)
+└── requirements.txt     # Dependências 
 ```
 
 

@@ -1,8 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-import schedule
-import time
 import pymssql  
+from datetime import datetime
 
 
 def main():
@@ -10,7 +9,7 @@ def main():
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36"}
 
     requisicao = requests.get(link, headers=headers)
-    print(requisicao)
+    #print(requisicao)
 
     site = BeautifulSoup(requisicao.text, "html.parser")
 
@@ -26,14 +25,12 @@ def main():
     txt_a_rio = a_rio[1].find_all("li")
     txt_conilon = conilon[0].find_all("li")
 
-    print(titulo.get_text())
-    print("Dia:", dia.get_text().strip(), "-------", periodo.strip())
-    print(txt_a_dura[0].get_text(), "-------", txt_a_dura[1].get_text())
-    print(txt_a_rio[0].get_text(), "--------", txt_a_rio[1].get_text())
-    print(txt_conilon[0].get_text(), "--------------------------", txt_conilon[1].get_text())
+    #print(titulo.get_text())
+    #print("Dia:", dia.get_text().strip(), "-------", periodo.strip())
+    #print(txt_a_dura[0].get_text(), "-------", txt_a_dura[1].get_text())
+    #print(txt_a_rio[0].get_text(), "--------", txt_a_rio[1].get_text())
+    #print(txt_conilon[0].get_text(), "--------------------------", txt_conilon[1].get_text())
 
-    banco(dia.get_text().strip(), periodo.strip(), txt_a_dura[0].get_text(), txt_a_rio[0].get_text(), 
-         txt_conilon[0].get_text(), txt_a_dura[1].get_text(), txt_a_rio[1].get_text(), txt_conilon[1].get_text())
           
     banco(dia.get_text().strip(), periodo, txt_a_dura[0].get_text(), txt_a_rio[0].get_text(), 
           txt_conilon[0].get_text(), txt_a_dura[1].get_text(), txt_a_rio[1].get_text(), txt_conilon[1].get_text())
@@ -41,10 +38,10 @@ def main():
 
 def banco(dia, periodo, txt_a_dura, txt_a_rio, txt_conilon, a_dura, a_rio, conilon):
     # Informações de conexão
-    server = ''  # Host fornecido
-    database = ''                 # Nome do banco de dados
-    username = ''          # Nome de usuário
-    password = ''                 # Senha
+    server = ''  
+    database = ''                 
+    username = ''          
+    password = ''                 
 
     # Conectando ao banco de dados com pymssql
     try:
@@ -52,11 +49,10 @@ def banco(dia, periodo, txt_a_dura, txt_a_rio, txt_conilon, a_dura, a_rio, conil
             server=server,
             user=username,
             password=password,
-            database=database,
-            port=1433,
-            timeout=30
+            database=database
         )
-        print("Conexão bem-sucedida!")
+        print(f"Conexão bem-sucedida em: {datetime.now()}")
+        
 
         # Criação do cursor para executar as consultas
         cursor = connection.cursor()
@@ -81,7 +77,7 @@ def banco(dia, periodo, txt_a_dura, txt_a_rio, txt_conilon, a_dura, a_rio, conil
                        """, (dia, periodo, txt_conilon, conilon))
 
     except Exception as e:
-        print(f"Erro de conexão: {e}")
+        print(f"Erro de conexão em {datetime.now()}: {e}")
 
     finally:
         # Fechar a conexão
@@ -92,14 +88,4 @@ def banco(dia, periodo, txt_a_dura, txt_a_rio, txt_conilon, a_dura, a_rio, conil
 
 
 main()
-# Agendando o job para rodar às: 
-# schedule.every().day.at("16:50").do(main)
-# schedule.every().day.at("16:55").do(main)
-# schedule.every().day.at("17:00").do(main)
-# schedule.every().day.at("17:05").do(main)
-# schedule.every().day.at("17:10").do(main)
 
-# # Loop para manter o script rodando
-# while True:
-#     schedule.run_pending()  # Executa qualquer tarefa pendente
-#     time.sleep(60)  # Aguarda 1 minuto antes de verificar novamente
