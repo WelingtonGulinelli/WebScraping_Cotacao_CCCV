@@ -28,7 +28,7 @@ Este projeto é um web scraper automatizado que coleta cotações de café do si
 ### Passo 1: Clone o repositório
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/WelingtonGulinelli/WebScraping_Cotacao_CCCV
 cd job.cccv
 ```
 
@@ -41,9 +41,6 @@ python3 -m venv venv
 # Ativar ambiente virtual
 # No macOS/Linux:
 source venv/bin/activate
-
-# No Windows:
-# venv\Scripts\activate
 ```
 
 ### Passo 3: Instale as dependências
@@ -105,23 +102,8 @@ job.cccv/
 └── requirements.txt     # Dependências (opcional)
 ```
 
-## 🔧 Configuração Avançada
-
-### Alterar Horários de Execução
-
-Edite as linhas no final do arquivo `job_cccv.py`:
-
-```python
-schedule.every().day.at("HH:MM").do(main)
-```
-
-### Personalizar User-Agent
-
-Altere o header na linha ~9:
-
-```python
-headers = {"User-Agent": "SEU_USER_AGENT_PERSONALIZADO"}
-```
 
 
-**Desenvolvido para Gap Café** 🏢# WebScraping_Cotacao_CCCV
+
+
+
